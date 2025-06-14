@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Azure Test Homepage</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script defer src="/public/app.js"></script>
+    <style>
+      /* Animated gradient background */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(
+          120deg,
+          #3b82f6 0%,
+          #a78bfa 50%,
+          #f472b6 100%
+        );
+        background-size: 200% 200%;
+        animation: gradientMove 12s ease-in-out infinite;
+        opacity: 0.7;
+        filter: blur(8px);
+      }
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      @keyframes fade-in-down {
+        0% {
+          opacity: 0;
+          transform: translateY(-40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-down {
+        animation: fade-in-down 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      /* --- UI/UX ENHANCEMENTS START --- */
+      /* Button bounce animation */
+      .animate-bounce {
+        animation: bounce 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-18px);
+        }
+        60% {
+          transform: translateY(6px);
+        }
+      }
+      /* Button focus/active states */
+      .btn-glow:focus,
+      .btn-glow:active {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+        box-shadow: 0 0 24px 8px #fbbf24, 0 0 48px 12px #f472b6;
+      }
+      /* Card pop and shadow on hover */
+      .card-pop {
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .card-pop:hover {
+        transform: scale(1.09) translateY(-8px) rotate(-1deg);
+        box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.22), 0 0 24px #a78bfa;
+        border-color: #fbbf24;
+      }
+      /* Navbar logo sizing fix */
+      .logo-img {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+        max-width: 48px;
+        max-height: 48px;
+        object-fit: contain;
+        display: block;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 2px 12px 0 #a78bfa44;
+        transition: box-shadow 0.2s;
+      }
+      .logo-img:hover {
+        box-shadow: 0 4px 24px 0 #fbbf24aa, 0 0 8px #f472b6;
+      }
+      /* Features section SVG icon sizing */
+      .feature-icon {
+        width: 56px;
+        height: 56px;
+        min-width: 56px;
+        min-height: 56px;
+        max-width: 56px;
+        max-height: 56px;
+        display: inline-block;
+        filter: drop-shadow(0 2px 8px #fff6);
+        animation: feature-pop 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      @keyframes feature-pop {
+        0% {
+          opacity: 0;
+          transform: scale(0.7) rotate(-10deg);
+        }
+        60% {
+          opacity: 1;
+          transform: scale(1.15) rotate(3deg);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) rotate(0deg);
+        }
+      }
+      /* Footer logo (if any) */
+      .footer-logo-img {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+        max-width: 36px;
+        max-height: 36px;
+        object-fit: contain;
+        display: block;
+        border-radius: 8px;
+      }
+      /* Hero image */
+      .hero-img {
+        width: 420px; /* w-[420px] */
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px 0 #3b82f644, 0 0 24px #a78bfa;
+        transition: box-shadow 0.2s;
+      }
+      .hero-img:hover {
+        box-shadow: 0 16px 48px 0 #fbbf24aa, 0 0 32px #f472b6;
+      }
+      /* Avatar images in testimonials */
+      .avatar {
+        width: 56px;
+        height: 56px;
+        min-width: 56px;
+        min-height: 56px;
+        max-width: 56px;
+        max-height: 56px;
+        object-fit: cover;
+        display: block;
+        border-radius: 50%;
+        box-shadow: 0 2px 12px 0 #fbbf2444;
+        border: 3px solid #fff;
+      }
+      /* Ensure all images do not overflow */
+      img,
+      .img-fixed {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+      /* Social media icon sizing for footer */
+      .social-icon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+        max-width: 32px;
+        max-height: 32px;
+        display: inline-block;
+        vertical-align: middle;
+        transition: filter 0.2s;
+        filter: drop-shadow(0 2px 8px #fff6);
+      }
+      .social-icon:hover {
+        filter: drop-shadow(0 4px 16px #fbbf24cc);
+      }
+      /* Section heading enhancements */
+      .glow {
+        text-shadow: 0 0 24px #fff, 0 0 48px #a78bfa, 0 0 8px #fbbf24;
+        letter-spacing: 0.04em;
+      }
+      /* Typography improvements */
+      h1,
+      h2,
+      h3 {
+        letter-spacing: 0.01em;
+      }
+      h1 {
+        line-height: 1.1;
+      }
+      h2,
+      h3 {
+        line-height: 1.2;
+      }
+      /* Section padding for better spacing */
+      section {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+      }
+      /* --- UI/UX ENHANCEMENTS END --- */
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen flex flex-col"
+  >
+    <!-- Sticky Glassy Navbar -->
+    <nav
+      class="glass sticky top-0 z-30 flex items-center justify-between px-8 py-4 shadow-2xl border-b-2 border-blue-200 backdrop-blur-lg animate-fade-in-down"
+    >
+      <div class="flex items-center gap-3">
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg"
+          alt="Azure Logo"
+          class="logo-img"
+        />
+        <span class="text-2xl font-bold text-white tracking-wide glow"
+          >Azure Test</span
+        >
+      </div>
+      <!-- Responsive Nav: Hamburger for mobile -->
+      <div class="md:hidden">
+        <button id="nav-toggle" class="text-white focus:outline-none">
+          <svg
+            class="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+      <ul
+        id="nav-menu"
+        class="flex gap-8 md:flex-row flex-col md:static absolute top-20 left-0 w-full md:w-auto bg-white/10 md:bg-transparent backdrop-blur-lg md:backdrop-blur-none md:rounded-none rounded-b-2xl shadow-xl md:shadow-none border-t-2 md:border-0 border-blue-200 md:mt-0 mt-2 px-8 py-4 md:py-0 transition-all duration-300 md:opacity-100 opacity-0 pointer-events-none md:pointer-events-auto md:visible invisible"
+      >
+        <li>
+          <a
+            href="#"
+            class="text-white font-semibold hover:text-yellow-300 transition"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="text-white font-semibold hover:text-yellow-300 transition"
+            >Features</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="text-white font-semibold hover:text-yellow-300 transition"
+            >Testimonials</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="text-white font-semibold hover:text-yellow-300 transition"
+            >Contact</a
+          >
+        </li>
+        <li class="md:ml-4 mt-4 md:mt-0">
+          <a
+            href="#"
+            class="btn-glow bg-yellow-300 text-blue-900 font-bold px-6 py-2 rounded-full shadow-lg hover:bg-pink-400 hover:text-white transition-all duration-300 block md:inline-block"
+            >Get Started</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <script>
+      // Responsive nav toggle
+      const navToggle = document.getElementById("nav-toggle");
+      const navMenu = document.getElementById("nav-menu");
+      if (navToggle && navMenu) {
+        navToggle.addEventListener("click", () => {
+          navMenu.classList.toggle("opacity-0");
+          navMenu.classList.toggle("invisible");
+          navMenu.classList.toggle("pointer-events-none");
+        });
+      }
+    </script>
+
+    <!-- Hero Section -->
+    <section
+      class="flex flex-col md:flex-row items-center justify-between gap-12 px-8 py-20 max-w-6xl mx-auto w-full"
+    >
+      <div class="flex-1 text-center md:text-left">
+        <h1
+          class="text-5xl md:text-6xl font-extrabold text-white mb-6 glow animate-fade-in-down"
+        >
+          Deploy <span class="text-yellow-300">Modern</span> Sites on
+          <span class="text-blue-200">Azure</span>
+        </h1>
+        <p class="text-xl text-white/90 mb-8 animate-fade-in-up">
+          Experience lightning-fast, secure, and scalable web hosting with a
+          beautiful UI. Perfect for your next project or portfolio.
+        </p>
+        <button
+          id="testBtn"
+          class="btn-glow bg-gradient-to-r from-yellow-300 to-pink-400 text-blue-900 font-bold px-10 py-4 rounded-full shadow-xl hover:scale-105 hover:from-pink-400 hover:to-yellow-300 transition-all duration-300 text-2xl focus:outline-none focus:ring-4 focus:ring-pink-200"
+        >
+          Try Now
+        </button>
+        <div
+          id="message"
+          class="mt-6 text-2xl font-semibold text-white drop-shadow-lg min-h-[2.5rem]"
+        ></div>
+      </div>
+      <div class="flex-1 flex justify-center items-center">
+        <img
+          src="https://www.vissensa.com/wp-content/uploads/2020/03/azure-cloud-1.png"
+          alt="Azure Cloud Illustration"
+          class="hero-img drop-shadow-2xl animate-fade-in-up"
+        />
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="max-w-6xl mx-auto px-8 py-12">
+      <h2 class="text-4xl font-bold text-white text-center mb-12 glow">
+        Features
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div
+          class="glass card-pop rounded-2xl p-8 shadow-lg border border-white/20 backdrop-blur-md hover:scale-105 hover:shadow-2xl transition-all duration-300 text-center"
+        >
+          <div class="flex justify-center mb-4">
+            <svg
+              class="feature-icon text-yellow-300"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-2">Blazing Fast</h3>
+          <p class="text-white/90">
+            Optimized for speed and reliability on Azure's global
+            infrastructure.
+          </p>
+        </div>
+        <div
+          class="glass card-pop rounded-2xl p-8 shadow-lg border border-white/20 backdrop-blur-md hover:scale-105 hover:shadow-2xl transition-all duration-300 text-center"
+        >
+          <div class="flex justify-center mb-4">
+            <svg
+              class="feature-icon text-pink-400"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-2">Modern Design</h3>
+          <p class="text-white/90">
+            Sleek, responsive layouts powered by Tailwind CSS and glassmorphism.
+          </p>
+        </div>
+        <div
+          class="glass card-pop rounded-2xl p-8 shadow-lg border border-white/20 backdrop-blur-md hover:scale-105 hover:shadow-2xl transition-all duration-300 text-center"
+        >
+          <div class="flex justify-center mb-4">
+            <svg
+              class="feature-icon text-blue-400"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-2">Easy Customization</h3>
+          <p class="text-white/90">
+            Edit and expand this template to fit your needs in seconds.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="max-w-5xl mx-auto px-8 py-12">
+      <h2 class="text-3xl font-bold text-white text-center mb-10 glow">
+        What Users Say
+      </h2>
+      <div class="flex flex-col md:flex-row gap-8 justify-center">
+        <div
+          class="glass rounded-xl p-6 shadow-lg border border-white/20 backdrop-blur-md flex-1"
+        >
+          <div class="flex items-center gap-4 mb-3">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              alt="User"
+              class="avatar rounded-full border-2 border-yellow-300"
+            />
+            <div>
+              <div class="font-bold text-white">Alex J.</div>
+              <div class="text-yellow-300 text-sm">Web Developer</div>
+            </div>
+          </div>
+          <p class="text-white/90 italic">
+            "Deploying my portfolio on Azure was a breeze. The UI is stunning
+            and the performance is top-notch!"
+          </p>
+        </div>
+        <div
+          class="glass rounded-xl p-6 shadow-lg border border-white/20 backdrop-blur-md flex-1"
+        >
+          <div class="flex items-center gap-4 mb-3">
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              alt="User"
+              class="avatar rounded-full border-2 border-pink-400"
+            />
+            <div>
+              <div class="font-bold text-white">Maria S.</div>
+              <div class="text-pink-400 text-sm">Designer</div>
+            </div>
+          </div>
+          <p class="text-white/90 italic">
+            "I love the glassmorphism and the smooth animations. It feels so
+            modern and professional!"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="glass p-8 text-center text-white mt-auto rounded-t-3xl border-t-4 border-blue-200 shadow-2xl backdrop-blur-md"
+    >
+      <div
+        class="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto gap-4"
+      >
+        <span class="font-semibold"
+          >&copy; 2025 Azure Test Site. All rights reserved.</span
+        >
+        <div class="flex gap-6 justify-center mt-2 md:mt-0">
+          <a
+            href="#"
+            class="hover:text-yellow-300 transition"
+            aria-label="Twitter"
+          >
+            <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M22.46 6c-.77.35-1.6.59-2.47.7a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99A12.13 12.13 0 0 1 3.15 5.13a4.28 4.28 0 0 0 1.33 5.72c-.7-.02-1.36-.21-1.94-.53v.05c0 2.01 1.43 3.69 3.33 4.07-.35.1-.72.16-1.1.16-.27 0-.53-.03-.78-.07.53 1.65 2.07 2.85 3.89 2.88A8.6 8.6 0 0 1 2 19.54a12.13 12.13 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.38-.01-.57A8.7 8.7 0 0 0 24 4.59a8.49 8.49 0 0 1-2.54.7z"
+              />
+            </svg>
+          </a>
+          <a
+            href="#"
+            class="hover:text-yellow-300 transition"
+            aria-label="Facebook"
+          >
+            <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 4.41 3.6 8.07 8.19 8.93v-6.32h-2.47v-2.61h2.47v-2c0-2.44 1.46-3.78 3.7-3.78 1.07 0 2.19.19 2.19.19v2.41h-1.24c-1.22 0-1.6.76-1.6 1.54v1.84h2.72l-.44 2.61h-2.28v6.32c4.59-.86 8.19-4.52 8.19-8.93 0-5.5-4.46-9.96-9.96-9.96z"
+              />
+            </svg>
+          </a>
+          <a
+            href="#"
+            class="hover:text-yellow-300 transition"
+            aria-label="Instagram"
+          >
+            <img
+              class="social-icon"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png"
+              alt="Instagram"
+            />
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
